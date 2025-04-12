@@ -1,4 +1,4 @@
-/.phpunit.cache
+.phpunit.cache
 /node_modules
 /public/build
 /public/hot
@@ -21,3 +21,14 @@ yarn-error.log
 /.nova
 /.vscode
 /.zed
+# Laravel cache and compiled files
+/bootstrap/cache/*.php
+/storage/framework/cache/data/*
+/storage/framework/sessions/*
+/storage/framework/views/*
+
+# Laravel Telescope (optional)
+telescope/requests.sqlite
+
+# SQLite database
+*.sqlite
