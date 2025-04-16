@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <title>Print Rekap Order</title>
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    {{-- Memuat stylesheet dari Vite --}}
+    @vite('resources/css/app.css')
     <style>
         @media print {
             .no-print { display: none; }
@@ -34,6 +35,7 @@
             </tbody>
         </table>
 
+        {{-- Tombol cetak hanya muncul di layar, tidak dicetak --}}
         <div class="text-center mt-8 no-print">
             <button onclick="window.print()" class="bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded shadow">
                 Cetak Halaman

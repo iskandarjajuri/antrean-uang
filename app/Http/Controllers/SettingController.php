@@ -2,28 +2,30 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\View\View;
+use Illuminate\Support\Facades\Auth;
 
 class SettingController extends Controller
 {
     /**
-     * Display the settings index page.
+     * Tampilkan halaman utama pengaturan dengan informasi user saat ini.
      *
      * @return View
      */
     public function index(): View
     {
-        return view('settings.index');
+        $user = Auth::user();
+        return view('settings.index', compact('user'));
     }
 
     /**
-     * Display the user information page.
+     * Tampilkan halaman informasi pengguna dengan data user saat ini.
      *
      * @return View
      */
     public function userInfo(): View
     {
-        return view('settings.user-info');
+        $user = Auth::user();
+        return view('settings.user-info', compact('user'));
     }
 }

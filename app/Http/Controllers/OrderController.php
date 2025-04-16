@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-
 use Illuminate\View\View;
+use App\Http\Requests\StoreOrderRequest;
+use App\Models\PendaftaranAntrean;
+use Illuminate\Support\Facades\Auth;
 
 class OrderController extends Controller
 {
@@ -35,7 +37,9 @@ class OrderController extends Controller
      */
     public function adminList(): View
     {
-        return view('order.admin-list');
+        $orders = PendaftaranAntrean::with('pegawai')->latest('tanggal_daftar')->get();
+
+        return view('order.admin-list', compact('orders'));
     }
 
     /**
@@ -46,5 +50,26 @@ class OrderController extends Controller
     public function adminPrint(): View
     {
         return view('order.admin-print');
+    }
+
+    /**
+     * Simpan order baru yang dikirimkan melalui form.
+     *
+     * @param  \App\Http\Requests\StoreOrderRequest  $request
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(StoreOrderRequest $request): \Illuminate\Http\RedirectResponse
+    {
+        $data = $request->validated();
+
+        PendaftaranAntrean::create([
+            'pegawai_id' => Auth::id(),
+            'nomor_antrean' => PendaftaranAntrean::antreanTerakhirHariIni() + 1,
+            'tanggal_daftar' => now()->toDateString(),
+            'tanggal_penukaran' => $request->input('tanggal'),
+            'bukti_pdf' => null,
+        ]);
+
+        return redirect()->route('dashboard')->with('success', 'Order berhasil disimpan.');
     }
 }

@@ -1,11 +1,14 @@
 @extends('layouts.app')
 
+{{-- Judul halaman --}}
 @section('title', 'Pengaturan')
 
+{{-- Konten utama halaman pengaturan --}}
 @section('content')
     <div class="max-w-xl mx-auto bg-white shadow-md rounded-lg p-6 mt-10">
         <h1 class="text-xl font-bold text-indigo-700 mb-6">Pengaturan</h1>
 
+        {{-- Navigasi pengaturan --}}
         <ul class="space-y-4 text-sm">
             <li>
                 <a href="{{ route('settings.userinfo') }}"
@@ -13,6 +16,8 @@
                     👉 Lihat Info Pengguna
                 </a>
             </li>
+
+            {{-- Tombol logout pengguna --}}
             <li>
                 <form action="{{ route('logout') }}" method="POST">
                     @csrf

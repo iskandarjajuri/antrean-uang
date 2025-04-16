@@ -8,57 +8,75 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\RecapOrderController;
 use Barryvdh\DomPDF\Facade\Pdf;
 
-// Halaman utama
-Route::get('/', function () {
-    return view('dashboard');
+/*
+|--------------------------------------------------------------------------
+| Web Routes
+|--------------------------------------------------------------------------
+| File ini berisi semua definisi route untuk antarmuka web.
+| Blade view yang diakses oleh user terhubung dari sini.
+*/
+
+/**
+ * Halaman utama: Dashboard
+ */
+Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+
+
+
+/**
+ * Fitur Order
+ * - Membuat order
+ * - Melihat detail order
+ * - Melihat & mencetak daftar order (admin)
+ */
+Route::prefix('order')->controller(OrderController::class)->group(function () {
+    Route::post('/', 'store')->name('order.store');
+    Route::get('/create', 'create')->name('order.create');
+    Route::get('/{id}', 'detail')->name('order.detail');
+    Route::get('/admin/list', 'adminList')->name('order.admin.list');
+    Route::get('/admin/print', 'adminPrint')->name('order.admin.print');
 });
 
-// Dashboard
-Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-// Order
-Route::get('/order/create', function () {
-    return view('order.create');
-})->name('order.create');
 
-Route::get('/order/{id}', function () {
-    return view('order.detail');
-})->name('order.detail');
+/**
+ * Fitur Pengaturan
+ * - Lihat pengaturan umum
+ * - Lihat info pengguna
+ */
+Route::prefix('settings')->controller(SettingController::class)->group(function () {
+    Route::get('/', 'index')->name('settings.index');
+    Route::get('/user-info', 'userInfo')->name('settings.userinfo');
+});
 
-Route::get('/admin/orders', function () {
-    return view('order.admin-list');
-})->name('order.admin.list');
 
-Route::get('/admin/orders/print', function () {
-    return view('order.admin-print');
-})->name('order.admin.print');
 
-// Settings
-Route::get('/settings', function () {
-    return view('settings.index');
-})->name('settings.index');
-
-Route::get('/settings/user-info', function () {
-    return view('settings.user-info');
-})->name('settings.userinfo');
-
+/**
+ * Logout pengguna (POST)
+ */
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-// Recap Orders (Admin)
-Route::get('/admin/recap-orders', function () {
-    return view('recap.index');
-})->name('recap.index');
 
-Route::get('/admin/recap-orders/print', function () {
-    return view('recap.print');
-})->name('recap.print');
 
-// Struk Antrean PDF
+/**
+ * Fitur Rekap Order (admin)
+ * - Lihat daftar rekap
+ * - Cetak rekap ke PDF
+ */
+Route::prefix('admin/recap-orders')->controller(RecapOrderController::class)->group(function () {
+    Route::get('/', 'index')->name('recap.index');
+    Route::get('/print', 'print')->name('recap.print');
+});
+
+
+
+/**
+ * Generate PDF Struk Antrean
+ */
 Route::get('/struk-antrean/pdf', function () {
     $dataPecahan = [
         ['nominal' => 100000, 'masuk' => 158000000, 'keluar' => 60000000],
         ['nominal' => 50000, 'masuk' => 17000000, 'keluar' => 46000000],
-        // Tambahkan pecahan lain jika perlu
     ];
 
     $totalMasuk = collect($dataPecahan)->sum('masuk');
@@ -76,3 +94,12 @@ Route::get('/struk-antrean/pdf', function () {
 
     return $pdf->stream('struk-antrean.pdf');
 })->name('struk.pdf');
+
+
+
+/**
+ * Fallback jika route tidak ditemukan
+ */
+Route::fallback(function () {
+    return response()->view('errors.404', [], 404);
+});
