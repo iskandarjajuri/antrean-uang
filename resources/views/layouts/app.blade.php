@@ -4,11 +4,10 @@
     <meta charset="UTF-8">
     <title>@yield('title', 'Antrean Uang')</title>
 
-    {{-- Memuat file CSS utama dari Vite (Tailwind) --}}
-    @vite('resources/css/app.css')
+    <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-gray-100 text-gray-900">
-    <div class="min-h-screen px-4 py-6 container mx-auto">
+<body class="bg-gradient-to-r from-pink-500 via-purple-600 to-indigo-600 min-h-screen flex items-center justify-center text-white font-sans antialiased">
+    <div class="w-full max-w-5xl px-4 py-6">
         {{-- Tempat konten halaman individual --}}
         @yield('content')
     </div>

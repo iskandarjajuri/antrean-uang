@@ -3,22 +3,28 @@
 @section('title', 'Dashboard')
 
 @section('content')
-    <div class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6 mt-10">
-        <h1 class="text-2xl font-bold text-indigo-700 mb-4">Selamat Datang di Dashboard</h1>
-        <p class="text-gray-600 mb-6">Gunakan menu navigasi untuk mengakses fitur-fitur seperti order, pengaturan, dan rekap.</p>
+    <div class="max-w-6xl mx-auto py-12 px-6">
+        <div class="mb-10 text-center">
+            <h1 class="text-4xl font-extrabold text-gray-900 mb-3">🚀 Selamat Datang di Dashboard</h1>
+            <p class="text-lg text-gray-600">Kelola order, pantau rekap, dan sesuaikan pengaturan dengan mudah dan cepat.</p>
+        </div>
 
-        <div class="grid gap-4 grid-cols-1 sm:grid-cols-2">
-            <a href="{{ route('order.create') }}" class="block bg-indigo-100 hover:bg-indigo-200 text-indigo-800 text-center px-4 py-6 rounded shadow-sm">
-                ✍️ Buat Order
+        <div class="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            <a href="{{ route('order.create') }}" class="bg-gradient-to-r from-indigo-500 to-purple-500 text-white text-center py-6 px-4 rounded-xl shadow-lg hover:scale-105 transform transition duration-300">
+                <div class="text-3xl mb-2">✍️</div>
+                <div class="font-semibold">Buat Order</div>
             </a>
-            <a href="{{ route('order.admin.list') }}" class="block bg-blue-100 hover:bg-blue-200 text-blue-800 text-center px-4 py-6 rounded shadow-sm">
-                📋 Lihat Daftar Order (Admin)
+            <a href="{{ route('order.admin.list') }}" class="bg-gradient-to-r from-blue-500 to-cyan-500 text-white text-center py-6 px-4 rounded-xl shadow-lg hover:scale-105 transform transition duration-300">
+                <div class="text-3xl mb-2">📋</div>
+                <div class="font-semibold">Daftar Order</div>
             </a>
-            <a href="{{ route('recap.index') }}" class="block bg-green-100 hover:bg-green-200 text-green-800 text-center px-4 py-6 rounded shadow-sm">
-                📊 Lihat Rekap Order
+            <a href="{{ route('recap.index') }}" class="bg-gradient-to-r from-green-500 to-emerald-500 text-white text-center py-6 px-4 rounded-xl shadow-lg hover:scale-105 transform transition duration-300">
+                <div class="text-3xl mb-2">📊</div>
+                <div class="font-semibold">Rekap Order</div>
             </a>
-            <a href="{{ route('settings.index') }}" class="block bg-gray-100 hover:bg-gray-200 text-gray-800 text-center px-4 py-6 rounded shadow-sm">
-                ⚙️ Pengaturan
+            <a href="{{ route('settings.index') }}" class="bg-gradient-to-r from-gray-700 to-gray-500 text-white text-center py-6 px-4 rounded-xl shadow-lg hover:scale-105 transform transition duration-300">
+                <div class="text-3xl mb-2">⚙️</div>
+                <div class="font-semibold">Pengaturan</div>
             </a>
         </div>
     </div>
