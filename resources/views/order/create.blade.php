@@ -12,12 +12,12 @@
         <form action="{{ route('order.store') }}" method="POST" class="space-y-4">
             @csrf
 
-            {{-- Input Tanggal Penukaran --}}
+            {{-- Input Tanggal --}}
             <div>
-                <label for="tanggal_penukaran" class="block text-sm font-medium text-gray-700">Tanggal Penukaran</label>
-                <input type="date" id="tanggal_penukaran" name="tanggal_penukaran" required value="{{ old('tanggal_penukaran') }}"
+                <label for="tanggal" class="block text-sm font-medium text-gray-700">Tanggal Penukaran</label>
+                <input type="date" id="tanggal" name="tanggal" required value="{{ old('tanggal') }}"
                        class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-indigo-500 focus:border-indigo-500">
-                @error('tanggal_penukaran')
+                @error('tanggal')
                     <p class="text-sm text-red-600 mt-1">{{ $message }}</p>
                 @enderror
             </div>

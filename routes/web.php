@@ -17,9 +17,27 @@ use Barryvdh\DomPDF\Facade\Pdf;
 */
 
 /**
+ * Root URL
+ * Arahkan ke halaman dashboard jika sudah login (pegawai_id ada di session),
+ * jika belum login maka arahkan ke halaman login.
+ */
+Route::get('/', function () {
+    return session()->has('pegawai_id')
+        ? redirect('/dashboard')
+        : redirect('/login');
+});
+
+/**
+ * Login
+ */
+Route::get('/login', [AuthController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [AuthController::class, 'login']);
+
+
+/**
  * Halaman utama: Dashboard
  */
-Route::get('/', [DashboardController::class, 'index'])->name('dashboard');
+Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 
 

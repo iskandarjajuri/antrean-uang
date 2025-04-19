@@ -3,6 +3,12 @@
 @section('title', 'Dashboard')
 
 @section('content')
+@php
+    if (!session()->has('pegawai_id')) {
+        header('Location: /login');
+        exit;
+    }
+@endphp
     <div class="max-w-6xl mx-auto py-12 px-6">
         <div class="mb-10 text-center">
             <h1 class="text-4xl font-extrabold text-gray-900 mb-3">🚀 Selamat Datang di Dashboard</h1>

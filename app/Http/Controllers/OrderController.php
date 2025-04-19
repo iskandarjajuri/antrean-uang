@@ -66,7 +66,7 @@ class OrderController extends Controller
             'pegawai_id' => Auth::id(),
             'nomor_antrean' => PendaftaranAntrean::antreanTerakhirHariIni() + 1,
             'tanggal_daftar' => now()->toDateString(),
-            'tanggal_penukaran' => $request->input('tanggal'),
+            'tanggal_penukaran' => $request->input('tanggal', null),
             'bukti_pdf' => null,
         ]);
 
